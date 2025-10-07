@@ -1,0 +1,108 @@
+# ========== Sistema (Windows/macOS/Linux) ==========
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========== Logs & cache ==========
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.pid
+*.pid.lock
+.nyc_output/
+coverage/
+.eslintcache
+.stylelintcache
+
+# ========== Variáveis de ambiente ==========
+.env
+.env.*
+!.env.example
+
+# ========== Node/Front (mesmo que o front seja “vanilla”) ==========
+node_modules/
+bower_components/
+jspm_packages/
+.tmp/
+dist/
+build/
+.cache/
+.vite/
+.svelte-kit/
+.next/
+out/
+*.tsbuildinfo
+*.map
+
+# Se usar pasta pública com build
+public/build/
+public/assets/build/
+
+# ========== .NET / C# ==========
+# Artefatos de build
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+
+# VS/SDK
+.vs/
+_ReSharper*/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# NuGet
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+
+# Dados locais & backups
+*.dbmdl
+*.mdf
+*.ldf
+*.ndf
+*.bak
+*.backup
+
+# Publicação / perfis locais
+PublishProfiles/
+.local.settings.json
+
+# AppSettings por ambiente (mantenha só o de exemplo versionado)
+appsettings.Development.json
+appsettings.Staging.json
+appsettings.Production.json
+appsettings.*.json
+!appsettings.json
+!appsettings.example.json
+
+# ========== IDEs ==========
+# VSCode — mantém arquivos úteis do workspace
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# JetBrains Rider
+.idea/
+*.iml
+
+# ========== Docker (opcional) ==========
+# Descomente se usar override local
+# docker-compose.override.yml
+
+# ========== Dumps de banco ==========
+*.sql
+*.dump
+*.bak
