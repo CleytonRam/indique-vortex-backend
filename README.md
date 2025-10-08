@@ -1,4 +1,4 @@
-# 🚀 Indique Vortex - Backend (API)
+# Indique Vortex - Backend (API)
 
 > Sistema de indicação (referral system) desenvolvido com ASP.NET Core Web API + Entity Framework Core + SQL Server
 
@@ -8,22 +8,22 @@
 
 ---
 
-##  Sobre o Projeto
+## Sobre o Projeto
 
 API REST para gerenciar sistema de cadastro de usuários com **pontuação por indicação**. Quando um usuário se cadastra usando o link de indicação de outro usuário, o indicador ganha **1 ponto**.
 
-###  Funcionalidades
+### Funcionalidades
 
--  Cadastro de usuários com validação
--  Autenticação JWT
--  Sistema de indicação por link único (`refCode`)
--  Pontuação automática para indicadores
--  Perfil do usuário com estatísticas
--  Hash de senhas com BCrypt
+- ✅ Cadastro de usuários com validação
+- 🔐 Autenticação JWT
+- 🎯 Sistema de indicação por link único (`refCode`)
+- 📊 Pontuação automática para indicadores
+- 👤 Perfil do usuário com estatísticas
+- 🔒 Hash de senhas com BCrypt
 
 ---
 
-##  Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Backend
 - **ASP.NET Core 8.0** - Framework web moderno e performático
@@ -46,7 +46,7 @@ Implementação de autenticação moderna e segura. JWT permite escalabilidade (
 
 ---
 
-##  Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 indique-vortex-backend/
@@ -72,7 +72,7 @@ indique-vortex-backend/
 
 ---
 
-##  Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, certifique-se de ter instalado:
 
@@ -83,7 +83,7 @@ Antes de começar, certifique-se de ter instalado:
 
 ---
 
-##  Como Executar o Projeto
+## Como Executar o Projeto
 
 ### 1️ Clone o repositório
 
@@ -117,13 +117,16 @@ dotnet ef database update
 ### 4️ Execute a aplicação
 
 ```bash
-dotnet run
+# Primeiro, confie no certificado de desenvolvimento (apenas uma vez)
+dotnet dev-certs https --trust
+
+# Rode a aplicação
+dotnet run --launch-profile https
 ```
 
 A API estará rodando em:
-- 🌐 HTTP: `http://localhost:5172`
-- 🔒 HTTPS: `https://localhost:7203`
-- 📖 Swagger: `https://localhost:7203/swagger`
+- HTTPS: `https://localhost:7203`
+- Swagger: `https://localhost:7203/swagger`
 
 ### 5️ Seed de Dados (Opcional)
 
@@ -139,9 +142,9 @@ O projeto inclui um seed automático que cria **5 usuários de teste** na primei
 
 ---
 
-## 📡 Endpoints da API
+## Endpoints da API
 
-### 🔓 Públicos (Sem autenticação)
+### Públicos (Sem autenticação)
 
 #### **POST** `/api/auth/register`
 Cadastra um novo usuário. Opcionalmente aceita um código de indicação.
@@ -235,7 +238,6 @@ Authorization: Bearer {seu_token_jwt}
 ### Swagger UI
 Acesse `https://localhost:7203/swagger` para testar os endpoints interativamente.
 
-
 ### Arquivo .http (VS Code REST Client)
 O projeto inclui exemplos no arquivo `docs/api/http-examples.md`:
 
@@ -274,12 +276,12 @@ Content-Type: application/json
 
 ##  Segurança
 
-- ✅ **Senhas hasheadas** com BCrypt (salt automático)
-- ✅ **JWT com expiração** de 2 horas
-- ✅ **Validação de issuer e audience** nos tokens
-- ✅ **CORS configurado** para aceitar apenas frontend autorizado
-- ✅ **Validações server-side** em todos os inputs
-- ✅ **HTTPS habilitado** em produção
+- **Senhas hasheadas** com BCrypt (salt automático)
+- **JWT com expiração** de 2 horas
+- **Validação de issuer e audience** nos tokens
+- **CORS configurado** para aceitar apenas frontend autorizado
+- **Validações server-side** em todos os inputs
+- **HTTPS habilitado** em produção
 
 ---
 
@@ -307,13 +309,13 @@ A IA foi fundamental para **acelerar meu aprendizado** em conceitos que eu não 
 
 ---
 
-##  Repositórios Relacionados
+## Repositórios Relacionados
 
 - **Frontend (SPA):** [indique-vortex-frontend](https://github.com/CleytonRam/indique-vortex-frontend)
 
 ---
 
-##  Autor
+## Autor
 
 **Cleyton Glauco Ramsay Zaina Castrillon**
 
@@ -323,12 +325,8 @@ A IA foi fundamental para **acelerar meu aprendizado** em conceitos que eu não 
 
 ---
 
-##  Licença
+## Licença
 
 Este projeto foi desenvolvido como parte do processo seletivo para estágio no **Laboratório Vortex - UNIFOR**.
 
 ---
-
-##  Agradecimentos
-
-Agradeço ao **Laboratório Vortex** pela oportunidade de participar deste processo seletivo desafiador e enriquecedor! 🚀
