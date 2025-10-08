@@ -235,8 +235,6 @@ Authorization: Bearer {seu_token_jwt}
 ### Swagger UI
 Acesse `https://localhost:7203/swagger` para testar os endpoints interativamente.
 
-<!-- Adicione aqui uma screenshot do Swagger -->
-![Swagger Screenshot](docs/screenshots/swagger.png)
 
 ### Arquivo .http (VS Code REST Client)
 O projeto inclui exemplos no arquivo `docs/api/http-examples.md`:
