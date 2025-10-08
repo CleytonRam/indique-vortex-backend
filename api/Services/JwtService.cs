@@ -4,7 +4,6 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using ReferralApi.Models;
 
-
 namespace ReferralApi.Services
 {
     public class JwtService : IJwtService
@@ -12,15 +11,14 @@ namespace ReferralApi.Services
         private readonly string _secretKey;
         private readonly string _issuer;
         private readonly string _audience;
-        
 
         public JwtService(IConfiguration configuration)
         {
             _secretKey = configuration["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key");
             _issuer = configuration["Jwt:Issuer"] ?? "ReferralApi";
             _audience = configuration["Jwt:Audience"] ?? "ReferralApiClient";
-
         }
+
         public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -44,7 +42,6 @@ namespace ReferralApi.Services
             return tokenHandler.WriteToken(token);
         }
 
-
         public int? ValidateToken(string token)
         {
             if (string.IsNullOrEmpty(token)) return null;
@@ -54,11 +51,13 @@ namespace ReferralApi.Services
 
             try
             {
+                // ✅ CORREÇÃO: Adicionar ValidIssuer
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
+                    ValidIssuer = _issuer, // ✅ ADICIONAR ESTA LINHA
                     ValidateAudience = true,
                     ValidAudience = _audience,
                     ValidateLifetime = true,
@@ -69,8 +68,10 @@ namespace ReferralApi.Services
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
                 return userId;
             }
-            catch
+            catch (Exception ex)
             {
+                // ✅ ADICIONAR LOG PARA DEBUG
+                Console.WriteLine($"Erro na validação do token: {ex.Message}");
                 return null;
             }
         }

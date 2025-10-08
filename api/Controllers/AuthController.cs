@@ -22,8 +22,17 @@ namespace ReferralApi.Controllers
         {
             try
             {
+                Console.WriteLine($"📥 Registro recebido: {request.email}, RefCode: {refCode}");
+
                 var userResponse = await _userService.RegisterAsync(request, refCode);
-                var token = _jwtService.GenerateToken(await _userService.GetUserByEmailAsync(userResponse.email));
+
+                // ✅ CORREÇÃO: Buscar a entidade User pelo ID do usuário registrado
+                var userEntity = await _userService.GetUserByIdAsync(userResponse.id);
+                var token = _jwtService.GenerateToken(userEntity);
+
+                Console.WriteLine($"✅ Usuário registrado: {userResponse.email}");
+                Console.WriteLine($"🎯 RefCode gerado: {userResponse.refCode}");
+                Console.WriteLine($"📊 Pontos: {userResponse.points}");
 
                 return Ok(new
                 {
@@ -33,10 +42,12 @@ namespace ReferralApi.Controllers
             }
             catch (ArgumentException ex)
             {
+                Console.WriteLine($"❌ Erro no registro: {ex.Message}");
                 return BadRequest(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"💥 Erro interno: {ex}");
                 return StatusCode(500, new { message = "Erro interno do servidor." });
             }
         }
@@ -46,9 +57,21 @@ namespace ReferralApi.Controllers
         {
             try
             {
+                Console.WriteLine($"🔐 Tentando login: {request.email}");
+
                 var userId = await _userService.LoginAsync(request);
+
+                // ✅ CORREÇÃO: Buscar o usuário pelo ID retornado, não pelo email
                 var user = await _userService.GetUserProfileAsync(int.Parse(userId));
-                var token = _jwtService.GenerateToken(await _userService.GetUserByEmailAsync(user.email));
+
+                Console.WriteLine($"✅ Login bem-sucedido - UserId: {userId}");
+
+                // ✅ CORREÇÃO: Buscar a entidade User pelo ID para gerar o token
+                var userEntity = await _userService.GetUserByIdAsync(int.Parse(userId));
+                var token = _jwtService.GenerateToken(userEntity);
+
+                Console.WriteLine($"🎫 Token gerado: {token?.Substring(0, Math.Min(20, token.Length))}...");
+                Console.WriteLine($"👤 Dados do usuário: {user.name}, {user.email}, Pontos: {user.points}");
 
                 return Ok(new
                 {
@@ -58,10 +81,12 @@ namespace ReferralApi.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
+                Console.WriteLine($"❌ Credenciais inválidas: {ex.Message}");
                 return Unauthorized(new { message = ex.Message });
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"💥 Erro interno no login: {ex}");
                 return StatusCode(500, new { message = "Erro interno do servidor." });
             }
         }

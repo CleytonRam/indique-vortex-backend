@@ -17,9 +17,16 @@ namespace ReferralApi.Services
         public async Task<UserResponse> RegisterAsync(RegisterRequest request, string? refCode = null)
         {
             if (await GetUserByEmailAsync(request.email) != null)
-                throw new ArgumentException("Email já esta em uso.");
+                throw new ArgumentException("Email já está em uso.");
 
             var user = new User(request.name, request.email, request.password);
+
+            // ✅ ADICIONE ESTA VERIFICAÇÃO PARA GARANTIR refCode ÚNICO
+            while (await GetUserByRefCodeAsync(user.refCode) != null)
+            {
+                // Se o refCode já existe, gere um novo
+                user.RegenerateRefCode(); // Você precisa adicionar este método na classe User
+            }
 
             if (!string.IsNullOrEmpty(refCode))
             {
@@ -29,6 +36,11 @@ namespace ReferralApi.Services
                     user.referredById = referringUser.id;
                     referringUser.AddPoints(1);
                     _context.users.Update(referringUser);
+                    Console.WriteLine($"🎯 Usuário {user.email} foi indicado por {referringUser.name}");
+                }
+                else
+                {
+                    Console.WriteLine($"⚠️ RefCode não encontrado: {refCode}");
                 }
             }
 
@@ -36,11 +48,14 @@ namespace ReferralApi.Services
             await _context.SaveChangesAsync();
             return MapToUserResponse(user);
         }
-        public async Task<string> LoginAsync(LoginRequest request) 
+        public async Task<string> LoginAsync(LoginRequest request)
         {
             var user = await GetUserByEmailAsync(request.email);
-            if (user == null || !user.VerifyPassword(request.password)) throw new UnauthorizedAccessException("Credenciais inválidas.");
-            return user.id.ToString();
+
+            if (user == null || !user.VerifyPassword(request.password))
+                throw new UnauthorizedAccessException("Credenciais inválidas.");
+
+            return user.id.ToString(); // ✅ CORREÇÃO: Retorna o ID do usuário encontrado
         }
 
         public async Task<UserResponse> GetUserProfileAsync(int userId) 
@@ -64,6 +79,11 @@ namespace ReferralApi.Services
         {
             return await _context.users
                 .FirstOrDefaultAsync(u => u.refCode == refCode);
+        }
+        public async Task<User> GetUserByIdAsync(int userId)
+        {
+            return await _context.users
+                .FirstOrDefaultAsync(u => u.id == userId);
         }
         private UserResponse MapToUserResponse(User user)
         {

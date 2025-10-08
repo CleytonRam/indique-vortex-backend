@@ -7,12 +7,12 @@ namespace ReferralApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class UsersControllers : ControllerBase
+    public class UsersController : ControllerBase // ✅ CORREÇÃO: UsersController (singular)
     {
         private readonly IUserService _userService;
         private readonly IJwtService _jwtService;
 
-        public UsersControllers(IUserService userService, IJwtService jwtService)
+        public UsersController(IUserService userService, IJwtService jwtService) // ✅ CORREÇÃO: UsersController
         {
             _userService = userService;
             _jwtService = jwtService;
@@ -25,6 +25,10 @@ namespace ReferralApi.Controllers
             {
                 var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 var userId = _jwtService.ValidateToken(token);
+
+                Console.WriteLine(userId);
+                Console.WriteLine(token);
+
 
                 if (userId == null)
                     return Unauthorized(new { message = "Token inválido." });

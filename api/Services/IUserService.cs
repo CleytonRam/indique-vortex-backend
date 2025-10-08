@@ -10,5 +10,6 @@ namespace ReferralApi.Services
         Task<UserResponse> GetUserProfileAsync(int userId);
         Task<User?> GetUserByEmailAsync(string email);
         Task<User?> GetUserByRefCodeAsync(string refCode);
+        Task<User?> GetUserByIdAsync(int userId);
     }
 }

@@ -38,10 +38,14 @@ namespace ReferralApi.Models
 
         public User(string name, string email, string password) : this()
         {
-            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException("Nome não pode ser vazio", nameof(name));
-            if (string.IsNullOrWhiteSpace(email)) throw new ArgumentNullException("Email não pode ser vazio", nameof(email));
-            this.name = name;
-            this.email = email;
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Nome não pode ser vazio", nameof(name));
+
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email não pode ser vazio", nameof(email));
+
+            this.name = name.Trim();
+            this.email = email.Trim().ToLower(); 
             SetPassword(password);
             GenerateRefCode();
         }
@@ -74,6 +78,10 @@ namespace ReferralApi.Models
             refCode = new string(bytes.Select(b => _refCodeChars[b % _refCodeChars.Length]).ToArray());
         }
 
+        public void RegenerateRefCode()
+        {
+            GenerateRefCode(); // Reutiliza a lógica existente
+        }
         public void AddPoints(int pointsToAdd)
         {
             if (pointsToAdd <= 0) throw new ArgumentOutOfRangeException("Pontos devem ser positivos", nameof(pointsToAdd));
