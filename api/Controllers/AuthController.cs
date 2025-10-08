@@ -60,12 +60,10 @@ namespace ReferralApi.Controllers
 
                 var userId = await _userService.LoginAsync(request);
 
-                // ✅ CORREÇÃO: Buscar o usuário pelo ID retornado, não pelo email
                 var user = await _userService.GetUserProfileAsync(int.Parse(userId));
 
                 Console.WriteLine($"✅ Login bem-sucedido - UserId: {userId}");
 
-                // ✅ CORREÇÃO: Buscar a entidade User pelo ID para gerar o token
                 var userEntity = await _userService.GetUserByIdAsync(int.Parse(userId));
                 var token = _jwtService.GenerateToken(userEntity);
 
