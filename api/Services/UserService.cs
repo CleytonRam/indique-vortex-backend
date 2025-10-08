@@ -21,11 +21,11 @@ namespace ReferralApi.Services
 
             var user = new User(request.name, request.email, request.password);
 
-            // ✅ ADICIONE ESTA VERIFICAÇÃO PARA GARANTIR refCode ÚNICO
+            
             while (await GetUserByRefCodeAsync(user.refCode) != null)
             {
-                // Se o refCode já existe, gere um novo
-                user.RegenerateRefCode(); // Você precisa adicionar este método na classe User
+                
+                user.RegenerateRefCode(); 
             }
 
             if (!string.IsNullOrEmpty(refCode))
@@ -55,7 +55,7 @@ namespace ReferralApi.Services
             if (user == null || !user.VerifyPassword(request.password))
                 throw new UnauthorizedAccessException("Credenciais inválidas.");
 
-            return user.id.ToString(); // ✅ CORREÇÃO: Retorna o ID do usuário encontrado
+            return user.id.ToString(); 
         }
 
         public async Task<UserResponse> GetUserProfileAsync(int userId) 

@@ -51,13 +51,13 @@ namespace ReferralApi.Services
 
             try
             {
-                // ✅ CORREÇÃO: Adicionar ValidIssuer
+                
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidIssuer = _issuer, // ✅ ADICIONAR ESTA LINHA
+                    ValidIssuer = _issuer, 
                     ValidateAudience = true,
                     ValidAudience = _audience,
                     ValidateLifetime = true,
@@ -70,7 +70,7 @@ namespace ReferralApi.Services
             }
             catch (Exception ex)
             {
-                // ✅ ADICIONAR LOG PARA DEBUG
+               
                 Console.WriteLine($"Erro na validação do token: {ex.Message}");
                 return null;
             }

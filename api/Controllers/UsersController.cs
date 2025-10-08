@@ -7,12 +7,12 @@ namespace ReferralApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class UsersController : ControllerBase // ✅ CORREÇÃO: UsersController (singular)
+    public class UsersController : ControllerBase 
     {
         private readonly IUserService _userService;
         private readonly IJwtService _jwtService;
 
-        public UsersController(IUserService userService, IJwtService jwtService) // ✅ CORREÇÃO: UsersController
+        public UsersController(IUserService userService, IJwtService jwtService) 
         {
             _userService = userService;
             _jwtService = jwtService;

@@ -11,13 +11,11 @@ namespace ReferralApi.Data.Seed
             using (var context = new AppDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>()))
             {
-                // Verifica se já existem usuários no banco
                 if (context.users.Any())
                 {
-                    return; // Banco já foi seedado
+                    return; 
                 }
 
-                // Criar usuários iniciais
                 var users = new[]
                 {
                     new User("Ana Silva", "ana.silva@email.com", "Senha1234"),
@@ -27,11 +25,10 @@ namespace ReferralApi.Data.Seed
                     new User("Elena Costa", "elena.costa@email.com", "Senha1234")
                 };
 
-                // Adicionar pontos aleatórios para simular indicações
                 var random = new Random();
                 foreach (var user in users)
                 {
-                    user.AddPoints(random.Next(0, 10)); // 0 a 10 pontos
+                    user.AddPoints(random.Next(0, 10)); 
                 }
 
                 context.users.AddRange(users);

@@ -26,7 +26,6 @@ namespace ReferralApi.Controllers
 
                 var userResponse = await _userService.RegisterAsync(request, refCode);
 
-                // ✅ CORREÇÃO: Buscar a entidade User pelo ID do usuário registrado
                 var userEntity = await _userService.GetUserByIdAsync(userResponse.id);
                 var token = _jwtService.GenerateToken(userEntity);
 

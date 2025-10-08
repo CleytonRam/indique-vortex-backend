@@ -80,7 +80,7 @@ namespace ReferralApi.Models
 
         public void RegenerateRefCode()
         {
-            GenerateRefCode(); // Reutiliza a lógica existente
+            GenerateRefCode(); 
         }
         public void AddPoints(int pointsToAdd)
         {

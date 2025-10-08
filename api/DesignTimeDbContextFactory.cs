@@ -10,7 +10,7 @@ namespace ReferralApi
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-            // Connection string DIRETA - sem usar appsettings.json
+            
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ReferralSystem;Trusted_Connection=true;TrustServerCertificate=true;");
 
             return new AppDbContext(optionsBuilder.Options);
