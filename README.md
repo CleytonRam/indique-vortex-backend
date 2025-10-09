@@ -321,7 +321,7 @@ A IA foi fundamental para **acelerar meu aprendizado** em conceitos que eu não 
 
 - GitHub: [@CleytonRam](https://github.com/CleytonRam)
 - Email: cleytonglauco@gmail.com
-- LinkedIn: [Seu LinkedIn](https://www.linkedin.com/in/cleyton-ramsay-8637b525b/)
+- LinkedIn: [Cleyton Ramsay](https://www.linkedin.com/in/cleyton-ramsay-8637b525b/)
 
 ---
 
