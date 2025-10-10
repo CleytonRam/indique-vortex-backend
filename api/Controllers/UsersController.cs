@@ -23,27 +23,28 @@ namespace ReferralApi.Controllers
         {
             try
             {
-                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-                var userId = _jwtService.ValidateToken(token);
+                if (!User.Identity?.IsAuthenticated ?? true)
+                    return Unauthorized(new { message = "Não autenticado." });
 
-                Console.WriteLine(userId);
-                Console.WriteLine(token);
+                var userIdStr = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdStr))
+                    return Unauthorized(new { message = "Token sem NameIdentifier." });
 
+                if (!int.TryParse(userIdStr, out var userId))
+                    return Unauthorized(new { message = "Claim NameIdentifier inválida." });
 
-                if (userId == null)
-                    return Unauthorized(new { message = "Token inválido." });
-
-                var user = await _userService.GetUserProfileAsync(userId.Value);
+                var user = await _userService.GetUserProfileAsync(userId);
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode(500, new { message = "Erro interno do servidor." });
             }
         }
+
     }
 }

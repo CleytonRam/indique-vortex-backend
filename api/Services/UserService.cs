@@ -94,7 +94,7 @@ namespace ReferralApi.Services
                 email = user.email,
                 refCode = user.refCode,
                 points = user.points,
-                refLink = $"http://localhost:3000/register?ref={user.refCode}",
+                refLink = $"http://localhost:3000/#/register?ref={user.refCode}",
                 referredByName = user.referredBy?.name
             };
         }

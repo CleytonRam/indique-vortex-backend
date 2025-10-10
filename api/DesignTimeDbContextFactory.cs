@@ -15,4 +15,4 @@ namespace ReferralApi
             return new AppDbContext(optionsBuilder.Options);
         }
     }
-}
+} 

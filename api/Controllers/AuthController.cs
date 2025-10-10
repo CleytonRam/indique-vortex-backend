@@ -18,7 +18,8 @@ namespace ReferralApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromQuery] string? refCode, [FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromQuery(Name = "ref")] string? refCode,
+                                                  [FromBody] RegisterRequest request)
         {
             try
             {

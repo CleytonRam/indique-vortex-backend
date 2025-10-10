@@ -22,7 +22,7 @@ namespace ReferralApi.Services
         public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_secretKey);
+            var key = Encoding.UTF8.GetBytes(_secretKey);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -47,7 +47,7 @@ namespace ReferralApi.Services
             if (string.IsNullOrEmpty(token)) return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_secretKey);
+            var key = Encoding.UTF8.GetBytes(_secretKey);
 
             try
             {
